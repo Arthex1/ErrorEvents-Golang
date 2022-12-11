@@ -2,8 +2,6 @@ package errs
 
 import (
 	"fmt"
-
-	"golang.org/x/exp/slices"
 )
 
 
@@ -15,6 +13,9 @@ type Error struct {
 	ID uint 
 	Message string 
 	
+}
+func remove(slice []func(err *Error), s int) []func(err *Error) {
+    return append(slice[:s], slice[s+1:]...)
 }
 // Returns a new `Error` Struct Object with the Provided Message, Warning: ID and Error Name remain the same as before. This can be used while injecting variables into the message.
 func (s *Error) ChangeMessage(msg string) *Error {
@@ -40,7 +41,7 @@ func (s *ErrorHandler) DisconnectAllListeners(ecode uint) {
 }
 // Avoid using this function at all costs, as it can delete unwanted listeners if the index is provided wrong
 func (s *ErrorHandler) DisconnectListener(ecode uint, index int) {
-	slices.Delete(s.Listeners[ecode], index, index) 
+	// Yet to be implemented 
 }
 
 
